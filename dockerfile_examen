@@ -1,0 +1,16 @@
+FROM php:8.2-apache
+ENV DEBIAN_FRONTEND=noninteractive
+
+FROM ubuntu:22.04
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+apache2 php git curl && \
+rm -rf /var/lib/apt/lists/*
+
+RUN rm -rf /var/www/html*
+RUN git clone https://gist.github.com/xxsanekxx/4371331 /var/www/html/
+
+EXPOSE 80
+
+CMD ["apachectl", "-D", "FOREGROUND"]
